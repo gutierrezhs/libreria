@@ -362,8 +362,10 @@
     "Create a new Book":"crear un nuevo Libro",
     "Creating a new book": "Creando un nuevo Libro",
     "Loans": "Prestamos",
+    "Loan": "Prestamo",
     "Loan day": "Día del Prestamo",
     "Return date": "Fecha de devolución",
-    "Create a new Loan": "Crear un nuevo prestamo"
+    "Create a new Loan": "Crear un nuevo prestamo",
+    "Return": "Regresar"
 
 }

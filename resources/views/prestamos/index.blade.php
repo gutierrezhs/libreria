@@ -8,10 +8,10 @@
     {{-- {{ $mensaje }} --}}
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="flex justify-center">
-                    <a href="{{ route('prestamos.create') }}">
+                    <a href="{{ route('prestamos.new') }}">
                         <x-button class="m-5">
                             {{ __('Create a new Loan') }}
                         </x-button>
@@ -41,7 +41,7 @@
                             {{ __('Available') }}
                         </th>
                         <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                            Botones
+                            
                         </th>
                       </tr>
                     </thead>
@@ -50,13 +50,13 @@
                         @foreach ($prestamos as $prestamo)
                             <tr>
                                 <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-center">
-                                    {{ $prestamo->user_id }}
+                                    {{ $prestamo->user->name }}
                                 </th>
                                 <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-left">
-                                    {{ $prestamo->titulo }}
+                                    {{ $prestamo->book->titulo }}
                                 </th>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->autor }}
+                                    {{ $prestamo->book->autor }}
                                 </td>
                                 <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
                                     {{ $prestamo->fecha_prestamo }}
@@ -65,13 +65,11 @@
                                     {{ $prestamo->fecha_devolucion }}
                                 </td>
                                 <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->disponible }}
+                                    {{ $prestamo->book->disponible }}
                                 </td>
                                 <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    <a href="{{ route('prestamos.edit', $prestamo) }}">
-                                        <x-danger-button type="button">{{ __('Edit') }}</x-danger-button></a>
                                     <a href="{{ route('prestamos.delete',$prestamo) }}">
-                                        <x-danger-button>{{ __('Delete') }}</x-danger-button>
+                                        <x-danger-button>{{ __('Return') }}</x-danger-button>
                                     </a>
                                 </td>
                             </tr>

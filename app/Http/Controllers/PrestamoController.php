@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Prestamo;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 
 class PrestamoController extends Controller
 {
@@ -12,9 +14,11 @@ class PrestamoController extends Controller
      */
     public function index()
     {
-        $prestamos = Prestamo::orderBy('id','desc')->paginate(4);
+        $prestamos = Prestamo::with('book')->orderBy('devuelto', 'asc')->orderBy('created_at','desc')->paginate(4);
 
-        return view('prestamos.index', compact('prestamos'));
+        $user = Prestamo::with('user')->get();
+        
+        return view('prestamos.index', ['prestamos'=>$prestamos, 'user'=>$user ]);
     }
 
     /**
@@ -22,7 +26,10 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        //
+        $books = Book::all();
+        $users = User::all();
+
+        return view('prestamos.new', ['title'=>'Crear Prestamo', 'books'=>$books, 'users'=>$users]);
     }
 
     /**
@@ -30,7 +37,33 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'fecha_prestamo' => 'required',
+            'fecha_devolucion' => 'required'
+        ]);
+        
+        $prestamo = new Prestamo;
+
+        $bookId = Book::select('id')->where('titulo', $request->titulo)->get();
+        $userId = User::select('id')->where('name', $request->nombre)->get();
+
+        $prestamo = new Prestamo;
+        
+        $prestamo->user_id=$userId[0]->id;
+        $prestamo->book_id=$bookId[0]->id;
+        $prestamo->fecha_prestamo=$request->fecha_prestamo;
+        $prestamo->fecha_devolucion=$request->fecha_devolucion;
+        $prestamo->devuelto=0;
+
+        $book = Book::find($bookId[0]->id);
+        
+       $book->disponible=$book->disponible-1;
+       $book->save();
+
+        $prestamo->save();
+        
+        return to_route('prestamos.index');
+
     }
 
     /**
@@ -46,7 +79,7 @@ class PrestamoController extends Controller
      */
     public function edit(Prestamo $prestamo)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +87,20 @@ class PrestamoController extends Controller
      */
     public function update(Request $request, Prestamo $prestamo)
     {
-        //
+        $prestamo = Prestamo::find($request->devuelto);
+        $book = Book::find($prestamo->user_id);
+
+        if ($prestamo->devuelto!=1) {
+            $prestamo->devuelto=1;
+            $book->disponible = $book->disponible+1;
+
+        }
+
+        $prestamo->save();
+        $book->save();
+        
+        return to_route('prestamos.index');;
+
     }
 
     /**

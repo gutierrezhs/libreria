@@ -8,7 +8,7 @@
     <div class="formulario">
         <h1 class="text-center my-4 text-xl font-bold">{{ $title }}</h1>
         
-        <form action="{{ route('prestamos.edit', $prestamo) }}" method="POST">
+        <form action="{{ route('prestamos.edit', $prestamos) }}" method="POST">
         @csrf
     
             @include('prestamos.formulario')

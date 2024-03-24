@@ -25,7 +25,8 @@ Route::middleware([
     
     //Rutas Prestamos
     Route::get('/prestamos', [PrestamoController::class,'index'])->name('prestamos.index');
-    Route::get('/prestamos/create', [PrestamoController::class,'create'])->name('prestamos.create');
+    Route::get('/prestamos/new',[PrestamoController::class,'create'])->name('prestamos.new');
+    Route::post('/prestamos/new',[PrestamoController::class,'store'])->name('prestamos.store');
     Route::get('/prestamos/edit/{prestamo}', [PrestamoController::class,'edit'])->name('prestamos.edit');
     Route::post('/prestamos/edit/{prestamo}', [PrestamoController::class,'update'])->name('prestamos.update');
     Route::get('/prestamos/{prestamo}', [PrestamoController::class,'destroy'])->name('prestamos.delete');
