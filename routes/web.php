@@ -30,5 +30,6 @@ Route::middleware([
     Route::get('/prestamos/edit/{prestamo}', [PrestamoController::class,'edit'])->name('prestamos.edit');
     Route::post('/prestamos/edit/{prestamo}', [PrestamoController::class,'update'])->name('prestamos.update');
     Route::get('/prestamos/{prestamo}', [PrestamoController::class,'destroy'])->name('prestamos.delete');
+    Route::delete('/distroy/{book}',[BookController::class,'destroy'])->name('destroy');
 
 });

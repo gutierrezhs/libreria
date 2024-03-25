@@ -87,27 +87,27 @@ class PrestamoController extends Controller
      */
     public function update(Request $request, Prestamo $prestamo)
     {
-        $prestamo = Prestamo::find($request->devuelto);
-        $book = Book::find($prestamo->user_id);
-
-        if ($prestamo->devuelto!=1) {
-            $prestamo->devuelto=1;
-            $book->disponible = $book->disponible+1;
-
-        }
-
-        $prestamo->save();
-        $book->save();
-        
-        return to_route('prestamos.index');;
+        //
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prestamo $prestamo)
+    public function destroy(Request $request, Prestamo $prestamo)
     {
-        //
+        
+        $book = Book::find($prestamo->book_id);
+
+        if ($prestamo->devuelto!=1) {
+            $prestamo->devuelto=1;
+            $book->disponible = $book->disponible+1;
+        }
+
+        $book->save();
+
+        $prestamo->delete();
+
+        return to_route('prestamos.index');
     }
 }
