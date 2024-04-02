@@ -99,6 +99,10 @@ class PrestamoController extends Controller
         
         $book = Book::find($prestamo->book_id);
 
+        if(@auth()->user()->id!==$prestamo->user_id){
+            abort(403);
+        }
+
         if ($prestamo->devuelto!=1) {
             $prestamo->devuelto=1;
             $book->disponible = $book->disponible+1;

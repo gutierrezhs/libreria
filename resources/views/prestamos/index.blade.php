@@ -50,34 +50,38 @@
            
                     <tbody>
                         @forelse ($prestamos as $prestamo)
-                            <tr>
-                                <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-center">
-                                    {{ $prestamo->user->name }}
-                                </th>
-                                <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-left">
-                                    {{ $prestamo->book->titulo }}
-                                </th>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->book->autor }}
-                                </td>
-                                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->fecha_prestamo }}
-                                </td>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->fecha_devolucion }}
-                                </td>
-                                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    {{ $prestamo->book->disponible }}
-                                </td>
-                                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                        
+                        <tr>
+                            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-center">
+                                {{ $prestamo->user->name }}
+                            </th>
+                            <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 text-left">
+                                {{ $prestamo->book->titulo }}
+                            </th>
+                            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                {{ $prestamo->book->autor }}
+                            </td>
+                            <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                {{ $prestamo->fecha_prestamo }}
+                            </td>
+                            <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                {{ $prestamo->fecha_devolucion }}
+                            </td>
+                            <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                {{ $prestamo->book->disponible }}
+                            </td>
+                            <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                @if (@auth()->user()->id===$prestamo->user_id)
                                     <a href="{{ route('prestamos.delete',$prestamo) }}">
                                         <x-danger-button>{{ __('Return') }}</x-danger-button>
                                     </a>
-                                </td>
-                            </tr>
-                        @empty
-                            <p class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center bg-red-400 font-bold">No existe registro para mostrar</p>
-                        @endforelse
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <p class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center bg-red-400 font-bold">No existe registro para mostrar</p>
+                    @endforelse    
+                        
                     </tbody>
             
                   </table>

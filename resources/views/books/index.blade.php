@@ -6,6 +6,12 @@
     </x-slot>
 
     {{-- {{ $mensaje }} --}}
+    @if (session('status'))
+        <div class="alert alert-success max-w-7xl mx-auto mt-2 p-2 sm:px-6 lg:px-8 bg-green-600 text-center">
+            {{ session('status') }}
+        </div>
+    @endif
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -63,8 +69,11 @@
                                     {{ $book->disponible }}
                                 </td>
                                 <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                    <a href="{{ route('books.edit', $book) }}"><x-danger-button type="button">{{ __('Edit') }}</x-danger-button></a>
-                                    <a href="{{ route('books.delete',$book) }}"><x-danger-button>{{ __('Delete') }}</x-danger-button></a>
+
+                                    <div>
+                                        <a href="{{ route('books.edit', $book) }}"><x-danger-button type="button">{{ __('Edit') }}</x-danger-button></a>
+                                        <a href="{{ route('books.delete',$book) }}"><x-danger-button>{{ __('Delete') }}</x-danger-button></a>
+                                    </div>
                                     
                                 </td>
                             </tr>

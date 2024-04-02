@@ -48,7 +48,9 @@ class BookController extends Controller
 
         $book->save();
         
-        return redirect()->route('books.index',['mensaje'=>'Libro almacenado exitosamente!']);
+        session()->flash('status',__('Books created succesfully!'));
+
+        return redirect()->route('books.index');
 
     }
 
@@ -92,7 +94,9 @@ class BookController extends Controller
 
         $book->save();
 
-        return to_route('books.index',['mensaje'=>'Libro actualizado exitosamente!']);
+        session()->flash('status',__('Books edited succesfully!'));
+
+        return to_route('books.index');
 
     }
 
@@ -103,7 +107,9 @@ class BookController extends Controller
     {
         $book = Book::find($book->id);
         $book->delete();
+
+        session()->flash('status',__('Books eliminated succesfully!'));
         
-        return to_route('books.index',['mensaje'=>'Libro se ha eliminado exitosamente!']);
+        return to_route('books.index');
     }
 }
